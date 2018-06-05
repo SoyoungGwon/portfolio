@@ -85,7 +85,7 @@ $('.button_base').click(function(){
     var getUrl = $(this).attr('data-url');
     
     if($(this).hasClass('btn2')){
-        window.open(getUrl,"width=300, height=500");
+        window.open(getUrl,'width=300, height=600');
     }else if($(this).hasClass('btn3')){
         
     }else{
