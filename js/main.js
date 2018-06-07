@@ -1,5 +1,6 @@
 new WOW().init();
        
+// 스크롤했을때 메뉴가 바뀌도록
 $(window).scroll(function() {
 var scrollTop = $(this).scrollTop();
 var scrollBottom = scrollTop + $(this).height();
@@ -10,12 +11,12 @@ var top = $('.top');
 if(scrollTop >= 80){
     nav.addClass('white');
     top.removeClass('hide').addClass('block');
-}else{;
+}else{
     nav.removeClass('white');
     top.removeClass('block').addClass('hide');
 } 
 
-
+// 스크롤에 맞춰 원형 도형 확대 후 축소
 var dot = $('.dot');
 
 dot.each(function(){
@@ -25,6 +26,7 @@ dot.each(function(){
     }
 })
 
+// 스크롤에 맞춰 세로선 그리기    
 var line = $('.line');
 line.each(function(){
     var lineTop = $(this).offset().top;
@@ -33,37 +35,29 @@ line.each(function(){
     }
 })
 
-//        var itemTitle = $('.item-title');
-//        
-//        itemTitle.each(function(){
-//            var itemTitleTop = $(this).offset().top;
-//            console.log(itemTitleTop);
-//            if(itemTitleTop+250 < scrollBottom){
-//                $(this).addClass('uptitle');
-//            }else{
-//                $(this).removeClass('uptitle');
-//            }
-//        })
 
-    var row = $('.row');
-    row.each(function(){
-        var rowTop = $(this).offset().top;
-        if(rowTop+150 <= scrollBottom){
-            if($(this).hasClass('row1')){
-                $(this).addClass('fadeleft');
-            }else if($(this).hasClass('row2')){
-                $(this).addClass('fadeRight');
-            }else{
-            }
+// PC화면 상태일때 포트폴리오 부분 두파트로 나뉘어서 나타남
+var row = $('.row');
+row.each(function(){
+    var rowTop = $(this).offset().top;
+    if(rowTop+150 <= scrollBottom){
+        if($(this).hasClass('row1')){
+            $(this).addClass('fadeleft');
+        }else if($(this).hasClass('row2')){
+            $(this).addClass('fadeRight');
+        }else{
         }
-    })
+    }
+})
 });
-
+ 
+// top 버튼 클릭시 스크롤 애니메이션
 $('.top').click(function(){
     $('html, body').animate({scrollTop: $('#header').offset().top}, 1200, 'easeInOutQuart');
     return false;
 });
 
+// 메뉴 클릭시 스크롤 애니메이션
 $('.nav a').click(function(){
     $('html, body').animate({
     scrollTop: $( $.attr(this, 'href') ).offset().top
@@ -71,6 +65,8 @@ $('.nav a').click(function(){
     return false;
 });
 
+
+// 헤더부분 자동 슬라이드
 var swiper = new Swiper('.header-swiper', {
   centeredSlides: true,
   loop: true,
@@ -81,6 +77,8 @@ var swiper = new Swiper('.header-swiper', {
   }
 });
 
+
+// 포트폴리오 사이트 링크 연결
 $('.button_base').click(function(){
     var getUrl = $(this).attr('data-url');
     
@@ -93,6 +91,8 @@ $('.button_base').click(function(){
     }
 })
 
+
+// 모바일화면에서 메뉴바 눌렀을때 설정
 $('.phone-nav img').click(function(){
     $('.phone-sub').slideToggle();
 })
@@ -105,85 +105,68 @@ $('.phone-sub a').click(function(){
     $('.phone-sub').slideUp();
 })
 
-$(window).ready(function(){
-    var width = $(window).width();
-    var row1 = $('.row1');
-    var row2 = $('.row2');
-    var row3 = $('.row3');
-    var phoneNav = $('.phone-nav');
-    var nav = $('.nav-container');
-    
-    if(width<1540){
-        row1.removeClass('block').addClass('hide');
-        row2.removeClass('block').addClass('hide');
-        row3.removeClass('hide').addClass('block');
-    }else{
-        row1.removeClass('hide').addClass('block');
-        row2.removeClass('hide').addClass('block');
-        row3.removeClass('block').addClass('hide');
-    }
-    
-    if(width<900){
-        phoneNav.removeClass('hide').addClass('block white');
-        nav.removeClass('block').addClass('hide');
-    }else{
-        nav.removeClass('hide').addClass('block');
-        phoneNav.removeClass('block white').addClass('hide');
-    }
-    
-    if(width < 1000){
-          var swiper = new Swiper('.card-swiper', {
-          slidesPerView: 1,
-          spaceBetween: 20,
-          centeredSlides: true,
-          pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-          },
-        });
-        
-        var ctext = $('.row3 .c-text p');
-        ctext.addClass('plus');
-    }else{
-          var swiper = new Swiper('.card-swiper', {
-          slidesPerView: 2,
-          spaceBetween: 20,
-          centeredSlides: true,
-          pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-          },
-        });
-    }
-    $(window).resize(function(){
-        location.reload();
-        var width = $(window).width();
-    
-        if(width < 1040){
-              var swiper = new Swiper('.card-swiper', {
-              slidesPerView: 1,
-              spaceBetween: 20,
-              centeredSlides: true,
-              pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-              },
-            });
-            
-            var row3 = $('.row3');
-            row3.addClass('plus');
-            
-        }else{
-              var swiper = new Swiper('.card-swiper', {
-              slidesPerView: 2,
-              spaceBetween: 20,
-              centeredSlides: true,
-              pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-              },
-            });
+var width = $(window).width();
+var row1 = $('.row1');
+var row2 = $('.row2');
+var row3 = $('.row3');
+var phoneNav = $('.phone-nav');
+var nav = $('.nav-container');
+
+if(width<1540){
+    row1.removeClass('block').addClass('hide');
+    row2.removeClass('block').addClass('hide');
+    row3.removeClass('hide').addClass('block');
+}else{
+    row1.removeClass('hide').addClass('block');
+    row2.removeClass('hide').addClass('block');
+    row3.removeClass('block').addClass('hide');
+}
+
+if(width<900){
+    phoneNav.removeClass('hide').addClass('block white');
+    nav.removeClass('block').addClass('hide');
+}else{
+    nav.removeClass('hide').addClass('block');
+    phoneNav.removeClass('block white').addClass('hide');
+}
+
+if(width < 1000){        
+    var ctext = $('.row3 .c-text p');
+    ctext.addClass('plus');
+}
+
+var delta = 300;
+var timer = null;
+
+$( window ).on( 'resize', function( ) {
+    clearTimeout( timer );
+    timer = setTimeout( resizeDone, delta );
+} );
+
+function resizeDone( ) {
+    location.reload();
+}
+
+window.addEventListener( 'resize', function( ) {
+    clearTimeout( timer );
+    timer = setTimeout( resizeDone, delta );
+}, false );
+
+
+var swiper = new Swiper('.card-swiper',{
+    slidesPerView: 2,
+    spaceBetween: 20,
+    centeredSlides: true,
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+    },
+    breakpoints: {
+        940:{
+            slidesPerView: 1,
+            spaceBetween: 20
         }
-    })    
+    }
 })
+
 

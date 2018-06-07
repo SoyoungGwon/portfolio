@@ -190,6 +190,10 @@ body{
 
 .keycolor{
     color: $keycolor;
+    a{
+        overflow: hidden;
+        word-break: break-all;
+    }
 }
 
 #header{

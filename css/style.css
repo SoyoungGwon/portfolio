@@ -150,6 +150,9 @@ body {
 
 .keycolor {
   color: #d81921; }
+  .keycolor a {
+    overflow: hidden;
+    word-break: break-all; }
 
 #header .container {
   position: relative;
