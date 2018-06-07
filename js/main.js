@@ -105,6 +105,9 @@ $('.phone-sub a').click(function(){
     $('.phone-sub').slideUp();
 })
 
+
+// 리사이징시 가로 화면 크기에 따라 적용되는 화면 변화
+
 var width = $(window).width();
 var row1 = $('.row1');
 var row2 = $('.row2');
@@ -135,22 +138,51 @@ if(width < 1000){
     ctext.addClass('plus');
 }
 
-var delta = 300;
-var timer = null;
 
-$( window ).on( 'resize', function( ) {
-    clearTimeout( timer );
-    timer = setTimeout( resizeDone, delta );
-} );
+// 리사이즈가 완료 됐을 시에만 함수 호출
 
-function resizeDone( ) {
-    location.reload();
-}
+$(window).resize(function() {
+    if(this.resizeTO) {
+        clearTimeout(this.resizeTO);
+    }
+    this.resizeTO = setTimeout(function() {
+        $(this).trigger('resizeEnd');
+    }, 300);
+});
 
-window.addEventListener( 'resize', function( ) {
-    clearTimeout( timer );
-    timer = setTimeout( resizeDone, delta );
-}, false );
+
+$(window).on('resizeEnd', function() {
+    var width = $(window).width();
+    var row1 = $('.row1');
+    var row2 = $('.row2');
+    var row3 = $('.row3');
+    var phoneNav = $('.phone-nav');
+    var nav = $('.nav-container');
+
+    if(width<1540){
+        row1.removeClass('block').addClass('hide');
+        row2.removeClass('block').addClass('hide');
+        row3.removeClass('hide').addClass('block');
+    }else{
+        row1.removeClass('hide').addClass('block');
+        row2.removeClass('hide').addClass('block');
+        row3.removeClass('block').addClass('hide');
+    }
+
+    if(width<900){
+        phoneNav.removeClass('hide').addClass('block white');
+        nav.removeClass('block').addClass('hide');
+    }else{
+        nav.removeClass('hide').addClass('block');
+        phoneNav.removeClass('block white').addClass('hide');
+    }
+
+    if(width < 1000){        
+        var ctext = $('.row3 .c-text p');
+        ctext.addClass('plus');
+    }
+
+});
 
 
 var swiper = new Swiper('.card-swiper',{
